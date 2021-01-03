@@ -1,6 +1,6 @@
 use clap::{App, Arg, ArgMatches, SubCommand};
 
-const INSERT_SYMBOL: &str = "❯";
+const INSERT_SYMBOL: &str = ">>";
 const COMMAND_SYMBOL: &str = "⬢";
 const COMMAND_KEYMAP: &str = "vicmd";
 const NO_ERROR: &str = "0";
@@ -14,11 +14,10 @@ pub fn display(sub_matches: &ArgMatches<'_>) {
         COMMAND_KEYMAP => COMMAND_SYMBOL,
         _ => INSERT_SYMBOL,
     };
-
     let shell_color = match (symbol, last_return_code) {
         (COMMAND_SYMBOL, _) => 3,
-        (_, NO_ERROR) => 5,
-        _ => 9,
+        (_, NO_ERROR) => 2, //green
+        _ => 9,             //red
     };
 
     let venv = match venv_name.len() {

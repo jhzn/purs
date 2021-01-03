@@ -1,6 +1,6 @@
-#![deny(rust_2018_idioms)]
 use clap::{App, AppSettings};
 
+mod git;
 mod precmd;
 mod prompt;
 
