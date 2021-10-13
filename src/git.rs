@@ -81,20 +81,20 @@ impl fmt::Display for Info {
 }
 
 pub fn get_status(r: &Repository, detailed: bool) -> Option<Info> {
-    let (index_change, wt_change, conflicted, untracked) = count_files_statuses(r).unwrap();
+    let (index_change, wt_change, conflicted, untracked) = count_files_statuses(r).unwrap_or((0,0,0,0));
     let (ahead, behind) = get_ahead_behind(r).unwrap_or((0, 0));
 
     Some(Info {
-        detailed: detailed,
+        detailed,
 
         head_description: get_head_shortname(r),
 
         current_action: get_action(r),
 
-        conflicted: conflicted,
-        index_change: index_change,
+        conflicted,
+        index_change,
         working_tree_modified: wt_change,
-        untracked: untracked,
+        untracked,
 
         origin_ahead: ahead,
         origin_behind: behind,
